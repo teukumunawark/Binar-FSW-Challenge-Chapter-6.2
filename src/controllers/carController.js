@@ -1,6 +1,11 @@
 const carService = require('../services/carService');
 
 const createController = async (req, res) => {
+
+  const userID = req.user.id;
+
+  console.log(userID)
+
   const { plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
     available, type, year, availableAt } = req.body;
@@ -8,7 +13,7 @@ const createController = async (req, res) => {
   const { status, status_code, message, data } = await carService.createCar({
     plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
-    available, type, year, availableAt
+    available, type, year, availableAt, userID
   });
 
   res.status(status_code).send({
@@ -42,16 +47,22 @@ const getByIdController = async (req, res) => {
 
 const updateController = async (req, res) => {
   const { id } = req.params;
-  const { plate, manufacture, model, rentPerDay,
+
+  const userID = req.user.id;
+
+  const {
+    plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
     available, type, year, availableAt
   } = req.body;
 
-  const { status, status_code, message, data } = await carService.updateCar({
-    id, plate, manufacture, model, rentPerDay,
-    capacity, image, description, transmission,
-    available, type, year, availableAt
-  });
+  const { status, status_code, message, data } = await carService.updateCar(
+    {
+      id, plate, manufacture, model, rentPerDay,
+      capacity, image, description, transmission,
+      available, type, year, availableAt, userID,
+    }
+  );
 
   res.status(status_code).send({
     status: status,
@@ -62,8 +73,14 @@ const updateController = async (req, res) => {
 
 const deleteController = async (req, res) => {
   const { id } = req.params;
+  const userID = req.user.id;
 
-  const { status, status_code, message, data } = await carService.deleteCar({ id });
+  const {
+    status,
+    status_code,
+    message,
+    data
+  } = await carService.deleteCar({ id, userID });
 
   res.status(status_code).send({
     status: status,

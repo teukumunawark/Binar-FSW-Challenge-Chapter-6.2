@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const carRoute = require('./routes/carRoute');
+const authRoute = require('./routes/authRoute');
 
 const app = express();
 app.use(express.json());
 
 
-// app.use('/api/auth', authRoute);
+app.use('/api/auth', authRoute);
 
 app.use('/api', carRoute);
 

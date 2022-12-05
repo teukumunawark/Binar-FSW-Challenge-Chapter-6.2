@@ -49,10 +49,26 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      createdBy: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      updatedBy: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
+      deletedBy: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
