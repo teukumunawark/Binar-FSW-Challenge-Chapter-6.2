@@ -1,11 +1,7 @@
 const carService = require('../services/carService');
 
 const createController = async (req, res) => {
-
-  const userID = req.user.id;
-
-  console.log(userID)
-
+  
   const { plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
     available, type, year, availableAt } = req.body;
@@ -13,7 +9,7 @@ const createController = async (req, res) => {
   const { status, status_code, message, data } = await carService.createCar({
     plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
-    available, type, year, availableAt, userID
+    available, type, year, availableAt
   });
 
   res.status(status_code).send({
@@ -48,8 +44,6 @@ const getByIdController = async (req, res) => {
 const updateController = async (req, res) => {
   const { id } = req.params;
 
-  const userID = req.user.id;
-
   const {
     plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
@@ -60,7 +54,7 @@ const updateController = async (req, res) => {
     {
       id, plate, manufacture, model, rentPerDay,
       capacity, image, description, transmission,
-      available, type, year, availableAt, userID,
+      available, type, year, availableAt,
     }
   );
 
@@ -73,14 +67,13 @@ const updateController = async (req, res) => {
 
 const deleteController = async (req, res) => {
   const { id } = req.params;
-  const userID = req.user.id;
 
   const {
     status,
     status_code,
     message,
     data
-  } = await carService.deleteCar({ id, userID });
+  } = await carService.deleteCar({ id });
 
   res.status(status_code).send({
     status: status,

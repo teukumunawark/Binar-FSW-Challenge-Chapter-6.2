@@ -12,14 +12,10 @@ class CarRepository {
       {
         plate, manufacture, model, rentPerDay, capacity,
         image, description, transmission, available,
-        type, year, availableAt
+        type, year, availableAt,
       },
-      {
-        createdBy: userID,
-      }
     );
-    console.log(`Repo ${userID}`);
-
+    console.log(createCar.deletedAt);
     return createCar;
   }
 
@@ -51,16 +47,13 @@ class CarRepository {
   static async update({
     id, plate, manufacture, model, rentPerDay, capacity,
     image, description, transmission, available,
-    type, year, availableAt, userID
+    type, year, availableAt
   }) {
     const updateCar = await Car.update(
       {
         plate, manufacture, model, rentPerDay, capacity,
         image, description, transmission, available,
         type, year, availableAt
-      },
-      {
-        updatedBy: userID
       },
       { where: { id } },
     );
@@ -72,7 +65,6 @@ class CarRepository {
     const deletedCar = await Car.update(
       {
         deletedAt: new Date().getTime(),
-        deletedBy: userID
       },
       { where: { id } }
     );

@@ -4,7 +4,7 @@ class CarService {
   static async createCar({
     plate, manufacture, model, rentPerDay,
     capacity, image, description, transmission,
-    available, type, year, availableAt, userID
+    available, type, year, availableAt
   }) {
     try {
       if (!plate) {
@@ -118,7 +118,7 @@ class CarService {
       const createCar = await carRepository.create({
         plate, manufacture, model, rentPerDay,
         capacity, image, description, transmission,
-        available, type, year, availableAt, userID
+        available, type, year, availableAt
       });
 
       return {
@@ -161,7 +161,7 @@ class CarService {
 
   static async getCarById({ id }) {
     try {
-      const getCarById = await carRepository.getById({ id, userID });
+      const getCarById = await carRepository.getById({ id });
 
       if (!getCarById) {
         return {
@@ -192,13 +192,13 @@ class CarService {
   static async updateCar({
     id, plate, manufacture, model, rentPerDay, capacity,
     image, description, transmission, available,
-    type, year, availableAt, userID,
+    type, year, availableAt,
   }) {
     try {
       const updateCar = await carRepository.update({
         id, plate, manufacture, model, rentPerDay, capacity,
         image, description, transmission, available,
-        type, year, availableAt, userID,
+        type, year, availableAt,
       });
 
       return {
@@ -221,7 +221,7 @@ class CarService {
 
   static async deleteCar({ id, userID }) {
     try {
-      const deletedCar = await carRepository.delete({ id, userID });
+      const deletedCar = await carRepository.delete({ id });
       return {
         status: true,
         status_code: 200,
